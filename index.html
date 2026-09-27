@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finora | Finance Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>F</span>
+            <strong>Finora</strong>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="#" class="nav-link active" data-page="dashboard">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="nav-link" data-page="transactions">
+                <span class="nav-icon">↔</span>
+                <span>Transactions</span>
+            </a>
+
+            <a href="#" class="nav-link" data-page="analytics">
+                <span class="nav-icon">▥</span>
+                <span>Analytics</span>
+            </a>
+
+            <a href="#" class="nav-link" data-page="ai">
+                <span class="nav-icon">✦</span>
+                <span>AI Assistant</span>
+            </a>
+
+            <a href="#" class="nav-link" data-page="settings">
+                <span class="nav-icon">⚙</span>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-mini-card">
+
+                <span class="mini-card-icon">✦</span>
+
+                <div>
+                    <strong>Finora Pro</strong>
+                    <small>Manage your money</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         DASHBOARD
+    ========================================== -->
+
+    <main class="main" id="dashboardPage">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <p class="welcome">
+                    Welcome back 👋
+                </p>
+
+                <h1>
+                    Financial Overview
+                </h1>
+
+                <p class="topbar-subtitle">
+                    Track your money and stay in control.
+                </p>
+
+            </div>
+
+            <div class="topbar-actions">
+
+                <button
+                    class="quick-add-btn"
+                    id="quickAddBtn"
+                    type="button"
+                >
+                    <span>+</span>
+                    Add Transaction
+                </button>
+
+                <button
+                    class="theme-btn"
+                    type="button"
+                    aria-label="Toggle theme"
+                >
+                    🌙
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================================
+             TOP CARDS
+        ========================================== -->
+
+        <section class="cards">
+
+            <div class="card balance-card">
+
+                <div class="card-top">
+
+                    <p>Total Balance</p>
+
+                    <span class="card-icon">
+                        ◈
+                    </span>
+
+                </div>
+
+                <h2 id="balance">
+                    $12,450
+                </h2>
+
+                <div class="card-bottom">
+
+                    <span class="positive">
+                        ↗ +12.5%
+                    </span>
+
+                    <span class="card-label">
+                        vs last month
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="card income-card">
+
+                <div class="card-top">
+
+                    <p>Total Income</p>
+
+                    <span class="card-icon income-icon">
+                        ↗
+                    </span>
+
+                </div>
+
+                <h2 id="income">
+                    $5,200
+                </h2>
+
+                <div class="card-bottom">
+
+                    <span class="positive">
+                        ↗ +8.2%
+                    </span>
+
+                    <span class="card-label">
+                        this month
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="card expenses-card">
+
+                <div class="card-top">
+
+                    <p>Total Expenses</p>
+
+                    <span class="card-icon expense-icon">
+                        ↘
+                    </span>
+
+                </div>
+
+                <h2 id="expenses">
+                    $1,850
+                </h2>
+
+                <div class="card-bottom">
+
+                    <span class="negative">
+                        ↘ -4.3%
+                    </span>
+
+                    <span class="card-label">
+                        this month
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             DASHBOARD CONTENT
+        ========================================== -->
+
+        <section class="content-grid">
+
+            <!-- CHART -->
+
+            <div class="panel chart-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <p>Overview</p>
+
+                        <h2>
+                            Income & Expenses
+                        </h2>
+
+                    </div>
+
+                    <select id="chartPeriod">
+
+                        <option value="7">
+                            Last 7 days
+                        </option>
+
+                        <option value="30">
+                            Last 30 days
+                        </option>
+
+                        <option value="3">
+                            Last 3 months
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="chart-wrapper">
+
+                    <div
+                        class="chart"
+                        id="financeChart"
+                    >
+
+                        <div
+                            class="chart-grid-line"
+                            style="bottom:25%;"
+                        ></div>
+
+                        <div
+                            class="chart-grid-line"
+                            style="bottom:50%;"
+                        ></div>
+
+                        <div
+                            class="chart-grid-line"
+                            style="bottom:75%;"
+                        ></div>
+
+
+                        <div
+                            class="chart-bars"
+                            id="chartBars"
+                        >
+
+                            <div
+                                class="bar-wrapper"
+                                data-index="0"
+                            >
+                                <div class="bar"></div>
+                            </div>
+
+                            <div
+                                class="bar-wrapper"
+                                data-index="1"
+                            >
+                                <div class="bar"></div>
+                            </div>
+
+                            <div
+                                class="bar-wrapper"
+                                data-index="2"
+                            >
+                                <div class="bar"></div>
+                            </div>
+
+                            <div
+                                class="bar-wrapper"
+                                data-index="3"
+                            >
+                                <div class="bar"></div>
+                            </div>
+
+                            <div
+                                class="bar-wrapper"
+                                data-index="4"
+                            >
+                                <div class="bar"></div>
+                            </div>
+
+                            <div
+                                class="bar-wrapper"
+                                data-index="5"
+                            >
+                                <div class="bar"></div>
+                            </div>
+
+                            <div
+                                class="bar-wrapper"
+                                data-index="6"
+                            >
+                                <div class="bar"></div>
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="chart-tooltip"
+                            id="chartTooltip"
+                        ></div>
+
+                    </div>
+
+
+                    <div
+                        class="chart-days"
+                        id="chartDays"
+                    >
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+                    </div>
+
+                </div>
+
+
+                <div class="chart-legend">
+
+                    <div class="legend-item">
+                        <span class="legend-dot income-dot"></span>
+                        Income
+                    </div>
+
+                    <div class="legend-item">
+                        <span class="legend-dot expense-dot"></span>
+                        Expenses
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT TRANSACTIONS -->
+
+            <div class="panel transactions-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <p>Activity</p>
+
+                        <h2>
+                            Recent Transactions
+                        </h2>
+
+                    </div>
+
+                    <button
+                        class="add-btn"
+                        id="dashboardAddBtn"
+                        type="button"
+                    >
+                        + Add
+                    </button>
+
+                </div>
+
+
+                <div class="transaction-tools">
+
+                    <div class="search-box">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search transaction..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                    <select id="filterType">
+
+                        <option value="all">
+                            All
+                        </option>
+
+                        <option value="income">
+                            Income
+                        </option>
+
+                        <option value="expense">
+                            Expense
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    class="transactions"
+                    id="dashboardTransactions"
+                ></div>
+
+
+                <div
+                    class="empty-state"
+                    id="dashboardEmptyState"
+                >
+
+                    <div class="empty-icon">
+                        ✦
+                    </div>
+
+                    <strong>
+                        No transactions found
+                    </strong>
+
+                    <small>
+                        Try another search or add a new transaction.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         TRANSACTIONS PAGE
+    ========================================== -->
+
+    <section
+        class="page transactions-page"
+        id="transactionsPage"
+    >
+
+        <div class="page-header">
+
+            <div>
+
+                <p>Finance</p>
+
+                <h1>
+                    All Transactions
+                </h1>
+
+                <span>
+                    Manage and review your complete transaction history.
+                </span>
+
+            </div>
+
+            <button
+                class="quick-add-btn"
+                id="transactionsAddBtn"
+                type="button"
+            >
+                <span>+</span>
+                Add Transaction
+            </button>
+
+        </div>
+
+
+        <div class="transactions-summary">
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    #
+                </div>
+
+                <div>
+                    <p>Total Transactions</p>
+                    <h2 id="totalTransactions">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon income-summary-icon">
+                    ↗
+                </div>
+
+                <div>
+                    <p>Total Income</p>
+                    <h2 id="totalIncome">$0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon expense-summary-icon">
+                    ↘
+                </div>
+
+                <div>
+                    <p>Total Expenses</p>
+                    <h2 id="totalExpenses">$0</h2>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel transactions-list-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <p>History</p>
+
+                    <h2>
+                        Transaction History
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="transaction-tools">
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        type="text"
+                        id="transactionsSearch"
+                        placeholder="Search transaction..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+                <select id="transactionsFilter">
+
+                    <option value="all">All</option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                class="transactions transactions-page-list"
+                id="transactionsPageList"
+            ></div>
+
+
+            <div
+                class="empty-state"
+                id="transactionsEmptyState"
+            >
+
+                <div class="empty-icon">
+                    ✦
+                </div>
+
+                <strong>
+                    No transactions found
+                </strong>
+
+                <small>
+                    Your transaction history will appear here.
+                </small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ANALYTICS PAGE
+    ========================================== -->
+
+    <section
+        class="page analytics-page"
+        id="analyticsPage"
+    >
+
+        <div class="page-header">
+
+            <div>
+
+                <p>Insights</p>
+
+                <h1>
+                    Analytics
+                </h1>
+
+                <span>
+                    Understand your financial activity and spending habits.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ANALYTICS SUMMARY -->
+
+        <div class="analytics-grid">
+
+            <div class="analytics-card">
+
+                <div class="analytics-card-icon">
+                    ↗
+                </div>
+
+                <div>
+
+                    <span>
+                        Income
+                    </span>
+
+                    <strong id="analyticsIncome">
+                        $5,200
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="analytics-card">
+
+                <div class="analytics-card-icon expense">
+                    ↘
+                </div>
+
+                <div>
+
+                    <span>
+                        Expenses
+                    </span>
+
+                    <strong id="analyticsExpenses">
+                        $1,850
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="analytics-card">
+
+                <div class="analytics-card-icon">
+                    %
+                </div>
+
+                <div>
+
+                    <span>
+                        Savings Rate
+                    </span>
+
+                    <strong id="analyticsSavings">
+                        64%
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="analytics-card">
+
+                <div class="analytics-card-icon">
+                    #
+                </div>
+
+                <div>
+
+                    <span>
+                        Transactions
+                    </span>
+
+                    <strong id="analyticsTransactions">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ANALYTICS CONTENT -->
+
+        <div class="analytics-content">
+
+            <div class="panel analytics-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <p>Breakdown</p>
+
+                        <h2>
+                            Spending Categories
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="category-breakdown"
+                    id="categoryBreakdown"
+                >
+
+                    <div class="analytics-empty">
+                        Add transactions to see your spending breakdown.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel analytics-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <p>Performance</p>
+
+                        <h2>
+                            Financial Health
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="health-content">
+
+                    <div class="health-circle">
+
+                        <span id="healthScore">
+                            82
+                        </span>
+
+                        <small>
+                            Score
+                        </small>
+
+                    </div>
+
+
+                    <div class="health-info">
+
+                        <div class="health-row">
+
+                            <span>
+                                Income stability
+                            </span>
+
+                            <strong>
+                                Good
+                            </strong>
+
+                        </div>
+
+                        <div class="health-row">
+
+                            <span>
+                                Spending control
+                            </span>
+
+                            <strong>
+                                Good
+                            </strong>
+
+                        </div>
+
+                        <div class="health-row">
+
+                            <span>
+                                Savings
+                            </span>
+
+                            <strong>
+                                Strong
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         AI ASSISTANT PAGE
+    ========================================== -->
+
+    <section
+        class="page ai-page"
+        id="aiPage"
+    >
+
+        <div class="page-header">
+
+            <div>
+
+                <p>Finora Intelligence</p>
+
+                <h1>
+                    AI Assistant
+                </h1>
+
+                <span>
+                    Get simple insights about your spending and financial habits.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI HERO -->
+
+        <div class="ai-hero">
+
+            <div class="ai-avatar">
+                ✦
+            </div>
+
+            <div class="ai-hero-content">
+
+                <span>
+                    FINORA AI
+                </span>
+
+                <h2>
+                    Your personal financial assistant.
+                </h2>
+
+                <p>
+                    Ask about your spending, income, savings,
+                    or recent transactions.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI INSIGHTS -->
+
+        <div class="ai-grid">
+
+            <div class="ai-card">
+
+                <div class="ai-card-top">
+
+                    <span class="ai-icon">
+                        ◈
+                    </span>
+
+                    <span>
+                        Spending Insight
+                    </span>
+
+                </div>
+
+                <h3 id="aiSpendingInsight">
+                    Add transactions to generate your spending insight.
+                </h3>
+
+            </div>
+
+
+            <div class="ai-card">
+
+                <div class="ai-card-top">
+
+                    <span class="ai-icon">
+                        ↗
+                    </span>
+
+                    <span>
+                        Savings Insight
+                    </span>
+
+                </div>
+
+                <h3 id="aiSavingsInsight">
+                    Your savings analysis will appear here.
+                </h3>
+
+            </div>
+
+
+            <div class="ai-card">
+
+                <div class="ai-card-top">
+
+                    <span class="ai-icon">
+                        ⚡
+                    </span>
+
+                    <span>
+                        Smart Tip
+                    </span>
+
+                </div>
+
+                <h3 id="aiSmartTip">
+                    Keep tracking your transactions to receive personalized tips.
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI CHAT -->
+
+        <div class="panel ai-chat-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <p>Assistant</p>
+
+                    <h2>
+                        Ask Finora AI
+                    </h2>
+
+                </div>
+
+                <span class="ai-online">
+                    ● Online
+                </span>
+
+            </div>
+
+
+            <div
+                class="ai-chat-messages"
+                id="aiChatMessages"
+            >
+
+                <div class="ai-message">
+
+                    <div class="ai-message-avatar">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Finora AI
+                        </strong>
+
+                        <p>
+                            Hi! I can help you understand your
+                            spending and savings.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="ai-quick-actions">
+
+                <button
+                    type="button"
+                    class="ai-question"
+                    data-question="How much did I spend?"
+                >
+                    How much did I spend?
+                </button>
+
+                <button
+                    type="button"
+                    class="ai-question"
+                    data-question="What is my biggest expense?"
+                >
+                    Biggest expense?
+                </button>
+
+                <button
+                    type="button"
+                    class="ai-question"
+                    data-question="How much did I save?"
+                >
+                    How much did I save?
+                </button>
+
+            </div>
+
+
+            <div class="ai-input-area">
+
+                <input
+                    type="text"
+                    id="aiInput"
+                    placeholder="Ask Finora AI..."
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    id="aiSendBtn"
+                >
+                    ➤
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         SETTINGS PAGE
+    ========================================== -->
+
+    <section
+        class="page settings-page"
+        id="settingsPage"
+    >
+
+        <div class="page-header">
+
+            <div>
+
+                <p>Preferences</p>
+
+                <h1>
+                    Settings
+                </h1>
+
+                <span>
+                    Customize your Finora experience.
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="settings-layout">
+
+            <!-- PROFILE -->
+
+            <div class="panel settings-panel">
+
+                <div class="settings-heading">
+
+                    <div class="settings-heading-icon">
+                        ◉
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Profile
+                        </h2>
+
+                        <p>
+                            Manage your personal dashboard information.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-form-grid">
+
+                    <div class="setting-field">
+
+                        <label>
+                            Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="settingsName"
+                            placeholder="Your name"
+                        >
+
+                    </div>
+
+
+                    <div class="setting-field">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="settingsEmail"
+                            placeholder="you@example.com"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- APPEARANCE -->
+
+            <div class="panel settings-panel">
+
+                <div class="settings-heading">
+
+                    <div class="settings-heading-icon">
+                        ◐
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Appearance
+                        </h2>
+
+                        <p>
+                            Choose how Finora looks on your device.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-option">
+
+                    <div>
+
+                        <strong>
+                            Dark Mode
+                        </strong>
+
+                        <small>
+                            Use the dark Finora interface.
+                        </small>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="darkModeToggle"
+                        >
+
+                        <span></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- CURRENCY -->
+
+            <div class="panel settings-panel">
+
+                <div class="settings-heading">
+
+                    <div class="settings-heading-icon">
+                        $
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Currency
+                        </h2>
+
+                        <p>
+                            Select the currency displayed across Finora.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-field">
+
+                    <label>
+                        Default Currency
+                    </label>
+
+                    <select id="currencySelect">
+
+                        <option value="USD">
+                            USD — US Dollar
+                        </option>
+
+                        <option value="EUR">
+                            EUR — Euro
+                        </option>
+
+                        <option value="GBP">
+                            GBP — British Pound
+                        </option>
+
+                        <option value="CAD">
+                            CAD — Canadian Dollar
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- NOTIFICATIONS -->
+
+            <div class="panel settings-panel">
+
+                <div class="settings-heading">
+
+                    <div class="settings-heading-icon">
+                        ♢
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Notifications
+                        </h2>
+
+                        <p>
+                            Control your Finora notifications.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-option">
+
+                    <div>
+
+                        <strong>
+                            Financial reminders
+                        </strong>
+
+                        <small>
+                            Receive reminders about your finances.
+                        </small>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="notificationToggle"
+                            checked
+                        >
+
+                        <span></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-option">
+
+                    <div>
+
+                        <strong>
+                            Weekly summary
+                        </strong>
+
+                        <small>
+                            Get a weekly overview of your activity.
+                        </small>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="weeklySummaryToggle"
+                            checked
+                        >
+
+                        <span></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- DATA -->
+
+            <div class="panel settings-panel">
+
+                <div class="settings-heading">
+
+                    <div class="settings-heading-icon">
+                        ◫
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Data & Privacy
+                        </h2>
+
+                        <p>
+                            Manage your locally stored Finora data.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-actions">
+
+                    <button
+                        type="button"
+                        class="settings-secondary-btn"
+                        id="exportDataBtn"
+                    >
+                        Export Data
+                    </button>
+
+                    <button
+                        type="button"
+                        class="settings-danger-btn"
+                        id="clearDataBtn"
+                    >
+                        Clear Transactions
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- SAVE -->
+
+            <div class="settings-save-area">
+
+                <button
+                    type="button"
+                    class="settings-save-btn"
+                    id="saveSettingsBtn"
+                >
+                    Save Changes
+                </button>
+
+                <span
+                    class="settings-saved-message"
+                    id="settingsSavedMessage"
+                >
+                    Changes saved ✓
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ADD TRANSACTION MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="transactionModal"
+    >
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <p>Add New</p>
+
+                    <h2>
+                        Transaction
+                    </h2>
+
+                </div>
+
+                <button
+                    class="close-btn"
+                    id="closeModal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="transactionForm">
+
+                <label for="transactionTitle">
+                    Transaction Name
+                </label>
+
+                <input
+                    type="text"
+                    id="transactionTitle"
+                    placeholder="e.g. Netflix"
+                    maxlength="50"
+                    required
+                >
+
+
+                <label for="transactionAmount">
+                    Amount
+                </label>
+
+                <input
+                    type="number"
+                    id="transactionAmount"
+                    placeholder="100"
+                    min="0.01"
+                    step="0.01"
+                    required
+                >
+
+
+                <label for="transactionType">
+                    Type
+                </label>
+
+                <select id="transactionType">
+
+                    <option value="expense">
+                        Expense
+                    </option>
+
+                    <option value="income">
+                        Income
+                    </option>
+
+                </select>
+
+
+                <label for="transactionCategory">
+                    Category
+                </label>
+
+                <select id="transactionCategory">
+
+                    <option value="shopping">
+                        Shopping
+                    </option>
+
+                    <option value="food">
+                        Food
+                    </option>
+
+                    <option value="entertainment">
+                        Entertainment
+                    </option>
+
+                    <option value="transport">
+                        Transport
+                    </option>
+
+                    <option value="salary">
+                        Salary
+                    </option>
+
+                    <option value="freelance">
+                        Freelance
+                    </option>
+
+                    <option value="other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <label for="transactionDate">
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="transactionDate"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    Add Transaction
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         DELETE MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="deleteModal"
+    >
+
+        <div class="modal-box delete-modal-box">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <p>Confirm Action</p>
+
+                    <h2>
+                        Delete Transaction?
+                    </h2>
+
+                </div>
+
+                <button
+                    class="close-btn"
+                    id="closeDeleteModal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="delete-warning">
+                ⚠
+            </div>
+
+
+            <p class="delete-message">
+                Are you sure you want to delete this transaction?
+                This action cannot be undone.
+            </p>
+
+
+            <div class="delete-actions">
+
+                <button
+                    type="button"
+                    class="cancel-delete-btn"
+                    id="cancelDelete"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="confirm-delete-btn"
+                    id="confirmDelete"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</div>
+
+</body>
+</html>
